@@ -18,8 +18,8 @@ class PricePoint {
       sekPerKwh: json['SEK_per_kWh'].toDouble(),
       eurPerKwh: json['EUR_per_kWh'].toDouble(),
       exr: json['EXR'].toDouble(),
-      timeStart: DateTime.parse(json['time_start']),
-      timeEnd: DateTime.parse(json['time_end']),
+      timeStart: DateTime.parse(json['time_start']).toLocal(),
+      timeEnd: DateTime.parse(json['time_end']).toLocal(),
     );
   }
 

@@ -64,4 +64,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Force consistent WorkManager versions to avoid duplicate classes
+    implementation "androidx.work:work-runtime:2.8.1"
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
 }

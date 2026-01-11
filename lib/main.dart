@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
+import 'package:workmanager/workmanager.dart';
 import 'screens/home_screen.dart';
 import 'services/preferences_service.dart';
+import 'home_widget/price_widget_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +13,22 @@ void main() async {
 
   // Initialize home widget
   await HomeWidget.setAppGroupId('group.com.elpris.elprisapp');
+
+  // Initialize WorkManager for background widget updates
+  await Workmanager().initialize(
+    widgetUpdateCallbackDispatcher,
+    isInDebugMode: false,
+  );
+
+  // Register periodic task to update widget every 15 minutes
+  await Workmanager().registerPeriodicTask(
+    'widget_update',
+    'widgetBackgroundUpdate',
+    frequency: const Duration(minutes: 15),
+    constraints: Constraints(
+      networkType: NetworkType.connected,
+    ),
+  );
 
   runApp(const ElprisApp());
 }

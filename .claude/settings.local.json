@@ -27,7 +27,10 @@
       "Bash(else echo \"Flutter not found\")",
       "Bash(fi)",
       "Bash($USERPROFILE/flutter/bin/flutter build:*)",
-      "Bash(gh release create:*)"
+      "Bash(gh release create:*)",
+      "Bash(git commit:*)",
+      "Bash(flutter pub get:*)",
+      "Bash(\"$USERPROFILE/flutter/bin/flutter\" pub get)"
     ]
   }
 }

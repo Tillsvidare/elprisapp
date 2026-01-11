@@ -1,6 +1,46 @@
 import 'dart:convert';
 import 'package:home_widget/home_widget.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/price_data.dart';
+import '../services/electricity_api.dart';
+
+// Background callback function for WorkManager
+@pragma('vm:entry-point')
+void widgetUpdateCallbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    try {
+      print('Background task started: $task');
+
+      // Get saved region from SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      final region = prefs.getString('selected_region') ?? 'SE3';
+
+      print('Fetching prices for region: $region');
+
+      // Fetch prices from API
+      final apiService = ElectricityApiService();
+      final prices = await apiService.fetchPrices(DateTime.now(), region);
+
+      if (prices.isEmpty) {
+        print('No prices fetched, skipping widget update');
+        return Future.value(true);
+      }
+
+      print('Fetched ${prices.length} prices, updating widget');
+
+      // Update widget using the same logic as the main app
+      final widgetProvider = PriceWidgetProvider();
+      await widgetProvider.updateWidget(prices, region);
+
+      print('Background widget update completed successfully');
+      return Future.value(true);
+    } catch (e) {
+      print('Background task error: $e');
+      return Future.value(false);
+    }
+  });
+}
 
 class PriceWidgetProvider {
   Future<void> updateWidget(List<PricePoint> prices, String region) async {

@@ -85,6 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _currentRegion = newRegion;
     });
+    // Save the new region to preferences
+    await _prefs.saveRegion(newRegion);
     await _loadData();
   }
 
