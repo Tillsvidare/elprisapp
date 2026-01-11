@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="16dp">
+
+    <!-- Widget Title -->
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Elpris - SE3"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:paddingBottom="4dp" />
+
+    <!-- Current Price Section - Compact -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/current_price_background"
+        android:padding="6dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nu"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF"
+                android:alpha="0.8" />
+
+            <TextView
+                android:id="@+id/current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14:00"
+                android:textSize="9sp"
+                android:textColor="#FFFFFF"
+                android:alpha="0.7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/current_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.23"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" kr"
+                android:textSize="11sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="2dp"
+                android:alpha="0.9" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Upcoming Prices Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kommande:"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:paddingBottom="3dp"
+        android:alpha="0.9" />
+
+    <!-- Upcoming Prices Grid -->
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="7"
+        android:rowCount="2"
+        android:alignmentMode="alignBounds">
+
+        <!-- Period 0 -->
+        <TextView
+            android:id="@+id/upcoming_time_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="14:15"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Period 1 -->
+        <TextView
+            android:id="@+id/upcoming_time_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="14:30"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Period 2 -->
+        <TextView
+            android:id="@+id/upcoming_time_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="14:45"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Period 3 -->
+        <TextView
+            android:id="@+id/upcoming_time_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="15:00"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Period 4 -->
+        <TextView
+            android:id="@+id/upcoming_time_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="15:15"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Period 5 -->
+        <TextView
+            android:id="@+id/upcoming_time_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="15:30"
+            android:textSize="9sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:alpha="0.8" />
+
+        <!-- Dummy for alignment -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text=""
+            android:textSize="9sp" />
+
+        <!-- Second row - Prices -->
+
+        <!-- Price 0 -->
+        <TextView
+            android:id="@+id/upcoming_price_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.20"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Price 1 -->
+        <TextView
+            android:id="@+id/upcoming_price_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.18"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Price 2 -->
+        <TextView
+            android:id="@+id/upcoming_price_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.25"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Price 3 -->
+        <TextView
+            android:id="@+id/upcoming_price_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.30"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Price 4 -->
+        <TextView
+            android:id="@+id/upcoming_price_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.22"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Price 5 -->
+        <TextView
+            android:id="@+id/upcoming_price_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="1.19"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+
+        <!-- Dummy for alignment -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text=""
+            android:textSize="10sp" />
+
+    </GridLayout>
+
+</LinearLayout>
