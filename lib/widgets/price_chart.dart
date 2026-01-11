@@ -29,6 +29,11 @@ class PriceChart extends StatelessWidget {
     final maxPrice = prices.map((p) => p.sekPerKwh).reduce((a, b) => a > b ? a : b);
     final currentIndex = prices.indexWhere((p) => p.isCurrent());
 
+    // Check if data spans multiple days
+    final firstDay = prices.first.timeStart.day;
+    final lastDay = prices.last.timeStart.day;
+    final spansTwoDays = firstDay != lastDay;
+
     return Card(
       elevation: 2,
       margin: const EdgeInsets.all(16),
@@ -38,7 +43,7 @@ class PriceChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Elpris idag',
+              spansTwoDays ? 'Elpris kommande 24h' : 'Elpris idag',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -100,7 +105,7 @@ class PriceChart extends StatelessWidget {
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
-                        reservedSize: 30,
+                        reservedSize: 35,
                         interval: 16, // Show every 4 hours (16 * 15min = 4h)
                         getTitlesWidget: (value, meta) {
                           if (value.toInt() >= prices.length) {
@@ -108,15 +113,34 @@ class PriceChart extends StatelessWidget {
                           }
                           final index = value.toInt();
                           if (index % 16 == 0) {
-                            final hour = prices[index].timeStart.hour;
+                            final pricePoint = prices[index];
+                            final hour = pricePoint.timeStart.hour;
+                            final day = pricePoint.timeStart.day;
+
+                            // Show date marker if it's a new day
+                            final isNewDay = index > 0 && prices[index - 1].timeStart.day != day;
+
                             return Padding(
                               padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                hour.toString().padLeft(2, '0'),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    hour.toString().padLeft(2, '0'),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  if (isNewDay || (index == 0 && spansTwoDays))
+                                    Text(
+                                      '${day}/${pricePoint.timeStart.month}',
+                                      style: TextStyle(
+                                        fontSize: 9,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                ],
                               ),
                             );
                           }

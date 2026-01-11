@@ -11,7 +11,23 @@
       "Bash($HOME/flutter/bin/flutter:*)",
       "Bash(setx PATH \"%PATH%;%USERPROFILE%\\flutter\\bin\")",
       "Bash(cat:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Swedish electricity price app\n\n- Flutter Android app displaying current electricity prices\n- Real-time price display with 24-hour chart (96 data points)\n- Region selector (SE1, SE2, SE3, SE4)\n- Pull-to-refresh functionality\n- Home screen widget showing current + 6 upcoming prices\n- Swedish language interface\n- Material 3 design with Swedish color theme\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(gh --version:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(flutter build:*)",
+      "Bash(echo:*)",
+      "Bash(if [ -d \"$USERPROFILE/flutter/bin\" ])",
+      "Bash(then echo \"Found at $USERPROFILE/flutter\")",
+      "Bash(\"$USERPROFILE/flutter/bin/flutter\" --version)",
+      "Bash(elif [ -d \"C:/flutter/bin\" ])",
+      "Bash(then echo \"Found at C:/flutter\")",
+      "Bash(\"C:/flutter/bin/flutter\" --version)",
+      "Bash(else echo \"Flutter not found\")",
+      "Bash(fi)",
+      "Bash($USERPROFILE/flutter/bin/flutter build:*)",
+      "Bash(gh release create:*)"
     ]
   }
 }

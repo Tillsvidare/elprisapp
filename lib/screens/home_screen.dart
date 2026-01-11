@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/price_data.dart';
 import '../services/electricity_api.dart';
@@ -23,11 +24,26 @@ class _HomeScreenState extends State<HomeScreen> {
   String _currentRegion = 'SE3';
   bool _isLoading = true;
   String? _errorMessage;
+  Timer? _updateTimer;
 
   @override
   void initState() {
     super.initState();
     _loadData();
+    _startPeriodicUpdates();
+  }
+
+  @override
+  void dispose() {
+    _updateTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startPeriodicUpdates() {
+    // Update widget every 15 minutes
+    _updateTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
+      _updateWidget();
+    });
   }
 
   Future<void> _loadData() async {
@@ -61,13 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _updateWidget() async {
     if (_prices == null || _prices!.isEmpty) return;
 
-    final currentPrice = _apiService.getCurrentPrice(_prices!);
-    final upcomingPrices = _apiService.getUpcomingPrices(_prices!, 6);
-
-    if (currentPrice != null) {
-      final widgetPrices = [currentPrice, ...upcomingPrices];
-      await _widgetProvider.updateWidget(widgetPrices, _currentRegion);
-    }
+    // Pass ALL prices to widget (for full chart rendering)
+    await _widgetProvider.updateWidget(_prices!, _currentRegion);
   }
 
   Future<void> _onRegionChanged(String newRegion) async {

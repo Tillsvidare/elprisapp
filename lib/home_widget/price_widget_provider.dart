@@ -42,6 +42,9 @@ class PriceWidgetProvider {
         );
       }
 
+      // Generate and save chart image
+      await _generateChartImage(prices);
+
       // Update widget
       await HomeWidget.updateWidget(
         name: 'HomeScreenWidgetProvider',
@@ -49,6 +52,37 @@ class PriceWidgetProvider {
       );
     } catch (e) {
       print('Error updating widget: $e');
+    }
+  }
+
+  Future<void> _generateChartImage(List<PricePoint> prices) async {
+    try {
+      if (prices.isEmpty) {
+        print('Warning: No prices to generate chart');
+        return;
+      }
+
+      // Generate chart data for ALL prices (not just 7)
+      final chartData = prices.map((p) => {
+        'time': p.timeStart.toIso8601String(),
+        'price': p.sekPerKwh,
+      }).toList();
+
+      final chartDataJson = jsonEncode(chartData);
+      print('Saving chart data: ${prices.length} prices, ${chartDataJson.length} bytes');
+
+      await HomeWidget.saveWidgetData('chart_data', chartDataJson);
+
+      final minPrice = prices.map((p) => p.sekPerKwh).reduce((a, b) => a < b ? a : b);
+      final maxPrice = prices.map((p) => p.sekPerKwh).reduce((a, b) => a > b ? a : b);
+
+      await HomeWidget.saveWidgetData('chart_min', minPrice.toString());
+      await HomeWidget.saveWidgetData('chart_max', maxPrice.toString());
+      await HomeWidget.saveWidgetData('chart_count', prices.length.toString());
+
+      print('Chart data saved successfully: min=$minPrice, max=$maxPrice, count=${prices.length}');
+    } catch (e) {
+      print('Error generating chart data: $e');
     }
   }
 
